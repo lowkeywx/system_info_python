@@ -61,11 +61,15 @@ class SystemInfo():
         """
         获取机器物理CPU信息
         """
+        systemName = platform.system().lower()
+        cpu_name = "unkown"
         if(platform.system().lower() == "linux"):
             with open('/proc/cpuinfo', 'r') as f:
                 for line in f.readlines():
                     if line.startswith('model name'):
                         cpu_name = line.split(':')[1].strip()
+        elif systemName == "darwin":
+            pass
         else:
             import wmi
             win = wmi.WMI()
@@ -96,7 +100,7 @@ class SystemInfo():
 
     @staticmethod
     def floating_point_precision(number, precision=4):
-        return round(number, precision)
+        return round(number, precision) * 100
 
     @staticmethod
     def physical_hard_disk():
