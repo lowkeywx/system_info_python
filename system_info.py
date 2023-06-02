@@ -31,6 +31,9 @@ KEY_GPUS = "gpus"
 KEY_MEMORY = "memory"
 KEY_TEMPERATURE = "temperature"
 
+
+PHYSICAL_HARD_DISK_PATH = os.getenv('PHYSICAL_HARD_DISK_PATH', '/')
+
 class SystemInfo():
     @staticmethod
     def physical_system_time():
@@ -107,8 +110,7 @@ class SystemInfo():
         """
         获取机器硬盘信息(字节bytes)
         """
-        result = []
-        disk_usage = psutil.disk_usage('/')
+        disk_usage = psutil.disk_usage(PHYSICAL_HARD_DISK_PATH)
         return {SYSTEM_DISK: 
             {
                 KEY_TOTAL:disk_usage.total, 
